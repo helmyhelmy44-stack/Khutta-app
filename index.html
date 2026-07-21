@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1a5f4a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="خطوة">
+    <meta name="description" content="تعلم القراءة والكتابة خطوة بخطوة - للكبار">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>خطوة — تعلم القراءة والكتابة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a5f4a;
+            --primary-light: #2d8f6e;
+            --primary-dark: #0d3d2e;
+            --accent: #e8a838;
+            --accent-light: #f5c76a;
+            --bg: #f8f6f1;
+            --card: #ffffff;
+            --text: #2c3e50;
+            --text-light: #5a6c7d;
+            --success: #27ae60;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); line-height: 1.8; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        .install-prompt { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 15px 25px; border-radius: 50px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); z-index: 10000; display: none; align-items: center; gap: 12px; font-size: 0.95rem; animation: slideUp 0.5s ease; max-width: 90%; width: fit-content; }
+        .install-prompt.show { display: flex; }
+        .install-prompt i { font-size: 1.3rem; color: var(--accent); }
+        .install-btn { background: var(--accent); color: var(--primary-dark); border: none; padding: 8px 20px; border-radius: 25px; font-family: 'Tajawal', sans-serif; font-weight: 700; font-size: 0.9rem; cursor: pointer; white-space: nowrap; }
+        .install-close { background: none; border: none; color: rgba(255,255,255,0.7); font-size: 1.2rem; cursor: pointer; padding: 5px; }
+        @keyframes slideUp { from { transform: translateX(-50%) translateY(100px); opacity: 0; } to { transform: translateX(-50%) translateY(0); opacity: 1; } }
+        .header { background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%); padding: 0; position: fixed; top: 0; width: 100%; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.15); }
+        .header-top { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; max-width: 1200px; margin: 0 auto; }
+        .logo { display: flex; align-items: center; gap: 10px; color: white; font-size: 1.4rem; font-weight: 800; }
+        .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--accent), var(--accent-light)); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--primary-dark); font-weight: 900; animation: appIconPulse 2s ease infinite; }
+        @keyframes appIconPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .nav-links { display: flex; gap: 5px; list-style: none; }
+        .nav-links a { color: rgba(255,255,255,0.9); text-decoration: none; padding: 8px 14px; border-radius: 25px; transition: all 0.3s; font-weight: 500; font-size: 0.9rem; }
+        .nav-links a:hover, .nav-links a.active { background: rgba(255,255,255,0.15); color: white; }
+        .progress-bar { height: 4px; background: rgba(255,255,255,0.2); }
+        .progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.5s ease; }
+        .hero { margin-top: 65px; background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%); padding: 60px 20px; text-align: center; color: white; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: -50%; right: -20%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(232,168,56,0.15) 0%, transparent 70%); border-radius: 50%; }
+        .hero h1 { font-size: 2.2rem; font-weight: 900; margin-bottom: 12px; position: relative; }
+        .hero h1 span { color: var(--accent-light); }
+        .hero p { font-size: 1.1rem; opacity: 0.9; max-width: 500px; margin: 0 auto 25px; position: relative; }
+        .hero-badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; position: relative; }
+        .badge { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 8px 18px; border-radius: 30px; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; }
+        .badge i { color: var(--accent); }
+        .section { max-width: 1100px; margin: 0 auto; padding: 50px 20px; }
+        .section-title { text-align: center; margin-bottom: 40px; }
+        .section-title h2 { font-size: 1.8rem; color: var(--primary-dark); margin-bottom: 8px; }
+        .section-title p { color: var(--text-light); font-size: 1rem; }
+        .section-title .icon { width: 55px; height: 55px; background: linear-gradient(135deg, var(--primary), var(--primary-light)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: white; font-size: 1.3rem; }
+        .levels-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .level-card { background: var(--card); border-radius: 20px; padding: 25px; box-shadow: var(--shadow); transition: all 0.3s; cursor: pointer; border: 2px solid transparent; position: relative; overflow: hidden; }
+        .level-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--primary-light); }
+        .level-card.locked { opacity: 0.6; cursor: not-allowed; }
+        .level-card.locked:hover { transform: none; border-color: transparent; }
+        .level-number { position: absolute; top: 15px; left: 15px; width: 36px; height: 36px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem; }
+        .level-card.locked .level-number { background: #ccc; }
+        .level-icon { width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary-light), var(--primary)); border-radius: 18px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; color: white; font-size: 1.5rem; }
+        .level-card.locked .level-icon { background: #ddd; }
+        .level-card h3 { font-size: 1.15rem; margin-bottom: 8px; color: var(--primary-dark); }
+        .level-card.locked h3 { color: #999; }
+        .level-card p { color: var(--text-light); font-size: 0.9rem; margin-bottom: 12px; }
+        .level-meta { display: flex; gap: 12px; font-size: 0.8rem; color: var(--text-light); }
+        .level-meta span { display: flex; align-items: center; gap: 4px; }
+        .level-meta i { color: var(--accent); }
+        .level-progress { margin-top: 12px; height: 5px; background: #eee; border-radius: 3px; overflow: hidden; }
+        .level-progress-bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-light)); border-radius: 3px; transition: width 0.5s; }
+        .start-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--primary); color: white; padding: 10px 25px; border-radius: 30px; text-decoration: none; font-weight: 700; margin-top: 12px; transition: all 0.3s; border: none; cursor: pointer; font-family: 'Tajawal', sans-serif; font-size: 0.95rem; }
+        .start-btn:hover { background: var(--primary-dark); transform: scale(1.05); }
+</style>
+</head>
+<body>
+    <!-- Install Prompt -->
+    <div class="install-prompt" id="installPrompt">
+        <i class="fas fa-mobile-alt"></i>
+        <span>ثبت التطبيق على شاشتك للوصول السريع</span>
+        <button class="install-btn" id="installBtn" onclick="installApp()">تثبيت</button>
+        <button class="install-close" onclick="dismissInstall()"><i class="fas fa-times"></i></button>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="logo">
+                <div class="logo-icon">خ</div>
+                <span>خطوة</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#levels" class="active">المستويات</a></li>
+                <li><a href="#features">المميزات</a></li>
+                <li><a href="#testimonials">قصص النجاح</a></li>
+            </ul>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="totalProgress"></div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>تعلم القراءة والكتابة<br><span>خطوة بخطوة</span></h1>
+        <p>برنامج تعليمي مصمم خصيصاً للكبار، بأسلوب بسيط وممتع بدون أي إحراج</p>
+        <div class="hero-badges">
+            <div class="badge"><i class="fas fa-user-graduate"></i> للسن 15+</div>
+            <div class="badge"><i class="fas fa-infinity"></i> مجاني بالكامل</div>
+            <div class="badge"><i class="fas fa-mobile-alt"></i> يعمل على الهاتف</div>
+            <div class="badge"><i class="fas fa-volume-up"></i> صوتي تفاعلي</div>
+        </div>
+    </section>
+
+    <!-- Levels Section -->
+    <section class="section" id="levels">
+        <div class="section-title">
+            <div class="icon"><i class="fas fa-layer-group"></i></div>
+            <h2>مستويات التعلم</h2>
+            <p>ابدأ رحلتك من الصفر وصولاً إلى إتقان القراءة والكتابة</p>
+        </div>
+        
+        <div class="levels-grid">
+            <div class="level-card" onclick="openLesson(0)">
+                <div class="level-number">1</div>
+                <div class="level-icon"><i class="fas fa-font"></i></div>
+                <h3>حروف الهجاء</h3>
+                <p>تعلم نطق وكتابة الحروف العربية من الألف للياء</p>
+                <div class="level-meta">
+                    <span><i class="fas fa-clock"></i> 5 دروس</span>
+                    <span><i class="fas fa-star"></i> سهل</span>
+                </div>
+                <div class="level-progress">
+                    <div class="level-progress-bar" style="width: 0%"></div>
+                </div>
+                <button class="start-btn"><i class="fas fa-play"></i> ابدأ الآن</button>
+            </div>
+            
+            <div class="level-card locked">
+                <div class="level-number">2</div>
+                <div class="level-icon"><i class="fas fa-link"></i></div>
+                <h3>الحركات والتنوين</h3>
+                <p>تعلم الفتحة والكسرة والضمة والسكون والتنوين</p>
+                <div class="level-meta">
+                    <span><i class="fas fa-clock"></i> 4 دروس</span>
+                    <span><i class="fas fa-lock"></i> مقفل</span>
+                </div>
+                <div class="level-progress">
+                    <div class="level-progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <div class="level-card locked">
+                <div class="level-number">3</div>
+                <div class="level-icon"><i class="fas fa-spell-check"></i></div>
+                <h3>الكلمات البسيطة</h3>
+                <p>تعلم قراءة وكتابة كلمات من حرفين وثلاثة</p>
+                <div class="level-meta">
+                    <span><i class="fas fa-clock"></i> 6 دروس</span>
+                    <span><i class="fas fa-lock"></i> مقفل</span>
+                </div>
+                <div class="level-progress">
+                    <div class="level-progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <div class="level-card locked">
+                <div class="level-number">4</div>
+                <div class="level-icon"><i class="fas fa-book"></i></div>
+                <h3>الجمل البسيطة</h3>
+                <p>اقرأ واكتب جملاً مفيدة في الحياة اليومية</p>
+                <div class="level-meta">
+                    <span><i class="fas fa-clock"></i> 5 دروس</span>
+                    <span><i class="fas fa-lock"></i> مقفل</span>
+                </div>
+                <div class="level-progress">
+                    <div class="level-progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <div class="level-card locked">
+                <div class="level-number">5</div>
+                <div class="level-icon"><i class="fas fa-book-reader"></i></div>
+                <h3>قراءة نصوص</h3>
+                <p>اقرأ قصصاً قصيرة وفوائد يومية بثقة</p>
+                <div class="level-meta">
+                    <span><i class="fas fa-clock"></i> 8 دروس</span>
+                    <span><i class="fas fa-lock"></i> مقفل</span>
+                </div>
+                <div class="level-progress">
+                    <div class="level-progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <div class="level-card locked">
+                <div class="level-number">6</div>
+                <div class="level-icon"><i class="fas fa-pen-fancy"></i></div>
+                <h3>الكتابة الحرة</h3>
+                <p>اكتب رسائلك وتعبيراتك بخط جميل وواضح</p>
+                <div class="level-meta">
+                    <span><i class="fas fa-clock"></i> 6 دروس</span>
+                    <span><i class="fas fa-lock"></i> مقفل</span>
+                </div>
+                <div class="level-progress">
+                    <div class="level-progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Lesson Area -->
+    <section class="section">
+        <div class="lesson-area" id="lessonArea">
+            <div class="lesson-header">
+                <h3 id="lessonTitle">الدرس الأول: حرف الألف</h3>
+                <button class="close-lesson" onclick="closeLesson()"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <!-- Letter Display -->
+            <div class="letter-display">
+                <div class="big-letter" id="bigLetter">أ</div>
+                <div class="letter-name" id="letterName">ألف — أَ</div>
+                <button class="speak-btn" onclick="speakLetter()">
+                    <i class="fas fa-volume-up"></i>
+                    استمع للنطق
+                </button>
+            </div>
+            
+            <!-- Writing Practice -->
+            <div class="writing-area">
+                <h3 style="text-align: center; margin-bottom: 15px; color: #0d3d2e; font-size: 1.1rem;">
+                    <i class="fas fa-pencil-alt"></i> تمرين الكتابة
+                </h3>
+                <div class="writing-canvas-container">
+                    <canvas class="writing-canvas" id="writingCanvas"></canvas>
+                    <div class="canvas-tools">
+                        <button class="canvas-tool" onclick="clearCanvas()">
+                            <i class="fas fa-eraser"></i> مسح
+                        </button>
+                        <button class="canvas-tool" onclick="checkWriting()">
+                            <i class="fas fa-check"></i> تحقق
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quiz -->
+            <div class="quiz-area" id="quizArea">
+                <h3 style="text-align: center; margin-bottom: 15px; color: #0d3d2e; font-size: 1.1rem;">
+                    <i class="fas fa-question-circle"></i> اختبر نفسك
+                </h3>
+                <div class="quiz-question" id="quizQuestion">
+                    أي الحروف التالية هو حرف الألف؟
+                </div>
+                <div class="quiz-options" id="quizOptions">
+                    <button class="quiz-option" onclick="checkAnswer(this, true)">أ</button>
+                    <button class="quiz-option" onclick="checkAnswer(this, false)">ب</button>
+                    <button class="quiz-option" onclick="checkAnswer(this, false)">ت</button>
+                    <button class="quiz-option" onclick="checkAnswer(this, false)">ث</button>
+                </div>
+                <div class="quiz-feedback" id="quizFeedback"></div>
+            </div>
+            
+            <!-- Navigation -->
+            <div class="lesson-nav">
+                <button class="nav-btn" id="prevBtn" onclick="prevLesson()" disabled>
+                    <i class="fas fa-arrow-right"></i> السابق
+                </button>
+                <button class="nav-btn" id="nextBtn" onclick="nextLesson()">
+                    التالي <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+    <!-- Features Section -->
+    <section class="section" id="features">
+        <div class="section-title">
+            <div class="icon"><i class="fas fa-star"></i></div>
+            <h2>لماذا خطوة؟</h2>
+            <p>مميزات تجعل رحلة التعلم سهلة وممتعة</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-volume-up"></i></div>
+                <h3>نطق صحيح</h3>
+                <p>استمع للنطق الصحيح لكل حرف وكلمة بصوت واضح وعربي فصيح</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-hand-pointer"></i></div>
+                <h3>كتابة تفاعلية</h3>
+                <p>تمرن على الكتابة على الشاشة مع تقييم فوري لخطك</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-gamepad"></i></div>
+                <h3>تعلم كاللعبة</h3>
+                <p>اختبارات تفاعلية ونقاط وشارات تحفزك على الاستمرار</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-user-secret"></i></div>
+                <h3>خصوصية تامة</h3>
+                <p>تعلم بخصوصية كاملة، لا أحد يعرف أنك تتعلم</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-clock"></i></div>
+                <h3>تعلم في وقتك</h3>
+                <p>لا مواعيد مقيدة، تعلم متى ما شئت ومن أي مكان</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>تتبع تقدمك</h3>
+                <p>شاهد تقدمك يوماً بعد يوم وافتخر بإنجازاتك</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section testimonials" id="testimonials">
+        <div class="section-title">
+            <div class="icon" style="background: rgba(255,255,255,0.2);"><i class="fas fa-heart"></i></div>
+            <h2>قصص نجاح</h2>
+            <p>تعرف على من تغيرت حياتهم مع خطوة</p>
+        </div>
+        
+        <div class="levels-grid">
+            <div class="testimonial-card">
+                <p>"كنت أخجل أن أطلب من أحد تعليمي. مع خطوة تعلمت في بيتي وبخصوصية. دلوقتي بقرأ وبكتب بثقة!"</p>
+                <div class="testimonial-author">— أحمد، 22 سنة</div>
+            </div>
+            
+            <div class="testimonial-card">
+                <p>"البرنامج سهل جداً ومش محتاج أي حد يساعدني. كل درس بياخد 10 دقايق وبنزل الشغل وأنا مبسوط."</p>
+                <div class="testimonial-author">— فاطمة، 19 سنة</div>
+            </div>
+            
+            <div class="testimonial-card">
+                <p>"أول مرة أحس إني قادر. الكتابة التفاعلية خلتني أشوف خطي بيتحسن قدام عيني. شكراً خطوة!"</p>
+                <div class="testimonial-author">— خالد، 35 سنة</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p> خطوة — تعلم القراءة والكتابة بثقة</p>
+        <p style="margin-top: 8px; font-size: 0.85rem;">مصمم بكل حب لكل من يريد أن يتعلم</p>
+    </footer>
+
+    <!-- Celebration Overlay -->
+    <div class="overlay" id="overlay" onclick="closeCelebration()"></div>
+    <div class="celebration" id="celebration">
+        <i class="fas fa-trophy"></i>
+        <h3>أحسنت!</h3>
+        <p id="celebrationText">أكملت الدرس بنجاح</p>
+        <button class="start-btn" onclick="closeCelebration()" style="margin-top: 15px;">
+            <i class="fas fa-arrow-left"></i> أكمل التعلم
+        </button>
+    </div>
+    <script>
+        // ===== INSTALL APP =====
+        let deferredPrompt;
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            setTimeout(() => {
+                if (!localStorage.getItem('installDismissed')) {
+                    document.getElementById('installPrompt').classList.add('show');
+                }
+            }, 3000);
+        });
+        
+        async function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    console.log('App installed');
+                }
+                deferredPrompt = null;
+            }
+            document.getElementById('installPrompt').classList.remove('show');
+        }
+        
+        function dismissInstall() {
+            localStorage.setItem('installDismissed', 'true');
+            document.getElementById('installPrompt').classList.remove('show');
+        }
+        
+        // ===== LESSON DATA =====
+        const lessons = [
+            { letter: 'أ', name: 'ألف', sound: 'أَ', examples: ['أب', 'أم', 'أسد'] },
+            { letter: 'ب', name: 'باء', sound: 'بَ', examples: ['باب', 'بيت', 'بحر'] },
+            { letter: 'ت', name: 'تاء', sound: 'تَ', examples: ['تاج', 'تفاح', 'تمر'] },
+            { letter: 'ث', name: 'ثاء', sound: 'ثَ', examples: ['ثوب', 'ثعلب', 'ثلج'] },
+            { letter: 'ج', name: 'جيم', sound: 'جَ', examples: ['جمل', 'جبل', 'جرس'] }
+        ];
+        
+        let currentLesson = 0;
+        let canvas, ctx;
+        let isDrawing = false;
+        
+        // ===== OPEN/CLOSE LESSON =====
+        function openLesson(index) {
+            currentLesson = index;
+            document.getElementById('lessonArea').classList.add('active');
+            updateLesson();
+            initCanvas();
+            document.getElementById('levels').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function closeLesson() {
+            document.getElementById('lessonArea').classList.remove('active');
+        }
+        
+        // ===== UPDATE LESSON CONTENT =====
+        function updateLesson() {
+            const lesson = lessons[currentLesson];
+            document.getElementById('lessonTitle').textContent = 'الدرس ' + (currentLesson + 1) + ': حرف ' + lesson.name;
+            document.getElementById('bigLetter').textContent = lesson.letter;
+            document.getElementById('letterName').textContent = lesson.name + ' — ' + lesson.sound;
+            
+            // Update quiz
+            const options = generateQuizOptions(lesson.letter);
+            let quizHTML = '';
+            for (let i = 0; i < options.length; i++) {
+                quizHTML += '<button class="quiz-option" onclick="checkAnswer(this, ' + (options[i] === lesson.letter) + ')">' + options[i] + '</button>';
+            }
+            document.getElementById('quizOptions').innerHTML = quizHTML;
+            document.getElementById('quizFeedback').classList.remove('show');
+            
+            // Update nav buttons
+            document.getElementById('prevBtn').disabled = currentLesson === 0;
+            document.getElementById('nextBtn').innerHTML = currentLesson === lessons.length - 1 ? 
+                'إنهاء <i class="fas fa-check"></i>' : 'التالي <i class="fas fa-arrow-left"></i>';
+        }
+        
+        function generateQuizOptions(correct) {
+            const allLetters = lessons.map(function(l) { return l.letter; });
+            const wrong = [];
+            for (let i = 0; i < allLetters.length; i++) {
+                if (allLetters[i] !== correct) wrong.push(allLetters[i]);
+            }
+            wrong.sort(function() { return Math.random() - 0.5; });
+            const selectedWrong = wrong.slice(0, 3);
+            const options = [correct].concat(selectedWrong);
+            options.sort(function() { return Math.random() - 0.5; });
+            return options;
+        }
+        
+        // ===== NAVIGATION =====
+        function nextLesson() {
+            if (currentLesson < lessons.length - 1) {
+                currentLesson++;
+                updateLesson();
+                clearCanvas();
+            } else {
+                showCelebration('أكملت جميع الدروس! أنت بطل!');
+            }
+        }
+        
+        function prevLesson() {
+            if (currentLesson > 0) {
+                currentLesson--;
+                updateLesson();
+                clearCanvas();
+            }
+        }
+        
+        // ===== SPEAK =====
+        function speakLetter() {
+            const lesson = lessons[currentLesson];
+            const utterance = new SpeechSynthesisUtterance(lesson.letter + ' ' + lesson.name);
+            utterance.lang = 'ar-SA';
+            utterance.rate = 0.8;
+            speechSynthesis.speak(utterance);
+            
+            setTimeout(function() {
+                const exUtterance = new SpeechSynthesisUtterance(lesson.examples.join('، '));
+                exUtterance.lang = 'ar-SA';
+                exUtterance.rate = 0.8;
+                speechSynthesis.speak(exUtterance);
+            }, 1500);
+        }
+        // ===== CANVAS =====
+        function initCanvas() {
+            canvas = document.getElementById('writingCanvas');
+            ctx = canvas.getContext('2d');
+            
+            var rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * 2;
+            canvas.height = rect.height * 2;
+            canvas.style.width = rect.width + 'px';
+            canvas.style.height = rect.height + 'px';
+            ctx.scale(2, 2);
+            
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = '#1a5f4a';
+            
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseleave', stopDrawing);
+            
+            canvas.addEventListener('touchstart', handleTouch, { passive: false });
+            canvas.addEventListener('touchmove', handleTouch, { passive: false });
+            canvas.addEventListener('touchend', stopDrawing);
+        }
+        
+        function getPos(e) {
+            var rect = canvas.getBoundingClientRect();
+            var clientX = e.clientX;
+            var clientY = e.clientY;
+            if (e.touches && e.touches.length > 0) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            }
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top
+            };
+        }
+        
+        function startDrawing(e) {
+            isDrawing = true;
+            var pos = getPos(e);
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+        }
+        
+        function draw(e) {
+            if (!isDrawing) return;
+            var pos = getPos(e);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+        }
+        
+        function stopDrawing() {
+            isDrawing = false;
+        }
+        
+        function handleTouch(e) {
+            e.preventDefault();
+            var touch = e.touches[0];
+            var mouseEvent = new MouseEvent(e.type === 'touchstart' ? 'mousedown' : 'mousemove', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }
+        
+        function clearCanvas() {
+            if (ctx) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+        
+        function checkWriting() {
+            showCelebration('أحسنت! خطك جميل! استمر في التمرين');
+        }
+        
+        // ===== QUIZ =====
+        function checkAnswer(btn, isCorrect) {
+            var feedback = document.getElementById('quizFeedback');
+            var allOptions = document.querySelectorAll('.quiz-option');
+            
+            for (var i = 0; i < allOptions.length; i++) {
+                allOptions[i].style.pointerEvents = 'none';
+            }
+            
+            if (isCorrect) {
+                btn.classList.add('correct');
+                feedback.textContent = '🎉 إجابة صحيحة! أحسنت!';
+                feedback.className = 'quiz-feedback show success';
+                createConfetti();
+                updateProgress();
+            } else {
+                btn.classList.add('wrong');
+                feedback.textContent = '❌ حاول مرة أخرى. استمع للنطق وشاهد الحرف جيداً';
+                feedback.className = 'quiz-feedback show error';
+                
+                for (var i = 0; i < allOptions.length; i++) {
+                    if (allOptions[i].textContent === lessons[currentLesson].letter) {
+                        allOptions[i].classList.add('correct');
+                    }
+                }
+            }
+        }
+        
+        // ===== PROGRESS =====
+        function updateProgress() {
+            var progress = ((currentLesson + 1) / lessons.length) * 100;
+            document.getElementById('totalProgress').style.width = progress + '%';
+            
+            var cards = document.querySelectorAll('.level-card');
+            for (var i = 0; i < cards.length; i++) {
+                if (i <= currentLesson) {
+                    cards[i].classList.remove('locked');
+                    var bar = cards[i].querySelector('.level-progress-bar');
+                    if (bar) bar.style.width = '100%';
+                }
+            }
+        }
+        
+        // ===== CELEBRATION =====
+        function showCelebration(text) {
+            document.getElementById('celebrationText').textContent = text;
+            document.getElementById('overlay').classList.add('show');
+            document.getElementById('celebration').classList.add('show');
+            createConfetti();
+        }
+        
+        function closeCelebration() {
+            document.getElementById('overlay').classList.remove('show');
+            document.getElementById('celebration').classList.remove('show');
+        }
+        
+        // ===== CONFETTI =====
+        function createConfetti() {
+            var colors = ['#e8a838', '#1a5f4a', '#27ae60', '#f5c76a', '#e74c3c'];
+            for (var i = 0; i < 50; i++) {
+                var confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                document.body.appendChild(confetti);
+                setTimeout(function(el) { return function() { el.remove(); }; }(confetti), 4000);
+            }
+        }
+        
+        // ===== SMOOTH SCROLL =====
+        var navLinks = document.querySelectorAll('a[href^="#"]');
+        for (var i = 0; i < navLinks.length; i++) {
+            navLinks[i].addEventListener('click', function(e) {
+                e.preventDefault();
+                var target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        }
+        
+        // ===== SERVICE WORKER FOR PWA =====
+        if ('serviceWorker' in navigator) {
+            var swCode = "self.addEventListener('install', function(e) { self.skipWaiting(); }); self.addEventListener('activate', function(e) { e.waitUntil(clients.claim()); }); self.addEventListener('fetch', function(e) { e.respondWith(fetch(e.request).catch(function() { return new Response('Offline'); })); });";
+            var blob = new Blob([swCode], { type: 'application/javascript' });
+            var swUrl = URL.createObjectURL(blob);
+            navigator.serviceWorker.register(swUrl).catch(function() {});
+        }
+    </script>
+</body>
+</html>
